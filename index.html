@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMADGETI - Osiel Castillo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { font-family: Arial, sans-serif; min-height: 100vh; }
+
+    .pagina { display: none; min-height: 100vh; background-size: cover; background-position: center; background-attachment: fixed; }
+    .pagina.activa { display: block; }
+
+    #pag0 { background-color:#0a2e1a; background-image: linear-gradient(rgba(0,40,15,0.55), rgba(0,40,15,0.55)), url("https://images.unsplash.com/photo-1448375240586-882707db888b?w=1600&q=80"); }
+    #pag1 { background-color:#1a1a0a; background-image: linear-gradient(rgba(40,30,0,0.55), rgba(40,30,0,0.55)), url("https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=80"); }
+    #pag2 { background-color:#0a2e1a; background-image: linear-gradient(rgba(0,50,20,0.55), rgba(0,50,20,0.55)), url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80"); }
+    #pag3 { background-color:#0a1a2e; background-image: linear-gradient(rgba(0,30,80,0.55), rgba(0,30,80,0.55)), url("https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?w=1600&q=80"); }
+    #pag4 { background-color:#0a2e2e; background-image: linear-gradient(rgba(0,60,60,0.55), rgba(0,60,60,0.55)), url("https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80"); }
+    #pag5 { background-color:#1a0a2e; background-image: linear-gradient(rgba(30,0,80,0.55), rgba(30,0,80,0.55)), url("https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1600&q=80"); }
+    #pag6 { background-color:#2e1a0a; background-image: linear-gradient(rgba(60,30,0,0.55), rgba(60,30,0,0.55)), url("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1600&q=80"); }
+    #pag7 { background-color:#0a2e15; background-image: linear-gradient(rgba(0,60,20,0.55), rgba(0,60,20,0.55)), url("https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1600&q=80"); }
+    #pag8 { background-color:#0a1a0a; background-image: linear-gradient(rgba(0,40,10,0.70), rgba(0,40,10,0.70)), url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80"); }
+
+    /* MENÚ */
+    nav {
+      width: 100%;
+      background: rgba(10,60,140,0.50);
+      border-bottom: 2px solid rgba(100,180,255,0.30);
+    }
+    nav ul { display: flex; flex-wrap: wrap; list-style: none; justify-content: center; padding: 0; }
+    nav ul li button {
+      display: block; padding: 11px 13px; color: #e8f4ff;
+      font-size: 13px; background: none; border: none;
+      transition: background 0.2s; white-space: nowrap;
+      cursor: pointer; font-family: Arial, sans-serif;
+    }
+    nav ul li button:hover { background: rgba(30,120,255,0.45); color: #fff; text-decoration: underline; }
+    nav ul li button.active { background: rgba(20,100,220,0.50); color: #fff; font-weight: bold; }
+
+    /* TÍTULO PRINCIPAL */
+    .titulo-principal {
+      text-align: center;
+      padding: 30px 20px 10px;
+      color: #fff;
+      font-size: 2.8rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+      letter-spacing: 2px;
+    }
+    .titulo-principal span { color: #7dd8ff; }
+
+    .subtitulo {
+      text-align: center;
+      color: #cce8cc;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
+
+    /* CONTENIDO */
+    .contenido { position: relative; z-index: 1; padding: 20px 30px 40px; max-width: 900px; margin: 0 auto; }
+
+    .hero { text-align: center; margin-bottom: 25px; }
+    .hero h1 { font-size: 1.8rem; font-weight: bold; color: #fff; text-shadow: 1px 2px 8px rgba(0,0,0,0.8); }
+    .hero h1 span { color: #7dd8ff; }
+
+    .resena { background: rgba(0,20,10,0.65); border: 1px solid rgba(100,200,130,0.25); border-radius: 8px; padding: 25px; margin-bottom: 20px; color: #e0f0e0; line-height: 1.75; font-size: 0.95rem; }
+    .resena h2 { color: #7dd8ff; font-size: 1.1rem; margin-bottom: 12px; }
+    .resena p { margin-bottom: 12px; }
+
+    .imgs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
+    .imgs img { width: 280px; height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(100,200,130,0.30); }
+
+    .card { background: rgba(0,20,10,0.65); border: 1px solid rgba(100,200,130,0.25); border-radius: 8px; padding: 22px 26px; margin-bottom: 20px; color: #fff; }
+    .card h2 { color: #7dd8ff; font-size: 1.15rem; margin-bottom: 14px; }
+    .card .dato { margin-bottom: 10px; font-size: 0.93rem; line-height: 1.6; }
+    .card .dato strong { color: #a0e8b0; }
+    .card a { color: #7dd8ff; text-decoration: none; word-break: break-all; }
+    .card a:hover { color: #fff; text-decoration: underline; }
+
+    .alumno { background: rgba(0,20,10,0.65); border: 1px solid rgba(100,200,130,0.25); border-radius: 8px; padding: 25px; color: #fff; text-align: center; }
+    .alumno h2 { color: #7dd8ff; margin-bottom: 18px; font-size: 1.2rem; }
+    .alumno .dato { margin-bottom: 10px; font-size: 1rem; }
+    .alumno .dato strong { color: #a0e8b0; }
+  </style>
+</head>
+<body>
+
+  <div style="background:rgba(0,0,0,0.75); text-align:center; padding:18px 10px 12px;">
+    <div style="font-size:2.6rem; font-weight:bold; color:#fff; letter-spacing:3px; text-shadow:2px 2px 6px rgba(0,0,0,0.8);">AMADGETI</div>
+    <div style="color:#cce8cc; font-size:0.88rem; margin-top:4px;">Actividades de Medio Ambiente y Desarrollo Sustentable — DGETI</div>
+  </div>
+  <nav>
+    <ul>
+      <li><button onclick="ir(0)" id="btn0" class="active">Inicio</button></li>
+      <li><button onclick="ir(1)" id="btn1">Energía</button></li>
+      <li><button onclick="ir(2)" id="btn2">Tierra</button></li>
+      <li><button onclick="ir(3)" id="btn3">ODS</button></li>
+      <li><button onclick="ir(4)" id="btn4">Ingeniería</button></li>
+      <li><button onclick="ir(5)" id="btn5">Clima</button></li>
+      <li><button onclick="ir(6)" id="btn6">Reciclaje</button></li>
+      <li><button onclick="ir(7)" id="btn7">Medio Ambiente</button></li>
+      <li><button onclick="ir(8)" id="btn8">Alumno</button></li>
+    </ul>
+  </nav>
+
+  <div class="pagina activa" id="pag0">
+    <div class="contenido">
+      <div style="text-align:center; margin-bottom:22px;">
+        <img src="amadgeti_logo.png" alt="AMADGETI Logo" style="max-width:220px;">
+      </div>
+      <div class="resena">
+        <h2>¿Qué es AMADGETI?</h2>
+        <p>AMADGETI son las siglas de <strong style="color:#a0e8b0">Actividades de Medio Ambiente y Desarrollo Sustentable del DGETI</strong>. Es un programa impulsado por la Dirección General de Educación Tecnológica Industrial y de Servicios con la finalidad de fomentar en los estudiantes una conciencia ambiental activa, vinculando el calendario de fechas ambientales internacionales con actividades educativas dentro de los planteles.</p>
+        <p>El programa se implementó en el subsistema DGETI como parte de sus estrategias de formación integral, buscando que los jóvenes no solo adquieran conocimientos técnicos, sino también una responsabilidad con el entorno natural y social que los rodea.</p>
+        <h2>Reflexión personal</h2>
+        <p>Conocer el programa AMADGETI me ha permitido entender que cuidar el medio ambiente no es una tarea ajena a mi vida diaria. Cada fecha que aborda el programa me recuerda que pequeñas acciones, como reciclar, ahorrar energía o reflexionar sobre el cambio climático, tienen un impacto real. Este conocimiento me hace ser más consciente de mis decisiones cotidianas y me motiva a compartirlo con quienes me rodean.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag1">
+    <div class="contenido">
+      <div class="hero"><h1><span>Día Mundial de la Energía</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> Día Mundial de la Energía</div>
+        <div class="dato"><strong>Fecha:</strong> 22 de octubre</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Se conmemora para crear conciencia sobre la importancia de garantizar el acceso a energías limpias, asequibles y sostenibles para todas las personas, promoviendo la transición hacia fuentes renovables y el uso eficiente de los recursos energéticos.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://view.genially.com/6995fe8886a73d68797b9070" target="_blank">https://view.genially.com/6995fe8886a73d68797b9070</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag2">
+    <div class="contenido">
+      <div class="hero"><h1><span>Día Mundial de la Tierra</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> Día Mundial de la Tierra</div>
+        <div class="dato"><strong>Fecha:</strong> 22 de abril</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Se celebra desde 1970 para movilizar a la ciudadanía en la protección del medio ambiente. Es el evento ambiental civil más grande del mundo y busca impulsar políticas y acciones concretas a favor del planeta.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://www.youtube.com/shorts/NNMU6JuMPf8" target="_blank">https://www.youtube.com/shorts/NNMU6JuMPf8</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag3">
+    <div class="contenido">
+      <div class="hero"><h1><span>ODS — Objetivos de Desarrollo Sostenible</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> ODS — Objetivos de Desarrollo Sostenible</div>
+        <div class="dato"><strong>Fecha:</strong> 25 de septiembre</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Los 17 ODS fueron adoptados por la ONU en 2015 como un llamado universal para poner fin a la pobreza, proteger el planeta y garantizar que todas las personas disfruten de paz y prosperidad antes de 2030.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://view.genially.com/69e6ecb0e107fca5b994c468" target="_blank">https://view.genially.com/69e6ecb0e107fca5b994c468</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag4">
+    <div class="contenido">
+      <div class="hero"><h1><span>Día Mundial de la Ingeniería para el Desarrollo Sostenible</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> Día Mundial de la Ingeniería para el Desarrollo Sostenible</div>
+        <div class="dato"><strong>Fecha:</strong> 4 de marzo</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Reconoce el papel fundamental de la ingeniería en el logro de los ODS. Busca visibilizar cómo la innovación tecnológica y el diseño sostenible contribuyen a resolver los grandes retos del planeta.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://www.youtube.com/shorts/wKqQKLMeOSc" target="_blank">https://www.youtube.com/shorts/wKqQKLMeOSc</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag5">
+    <div class="contenido">
+      <div class="hero"><h1><span>Día Mundial del Clima</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> Día Mundial del Clima</div>
+        <div class="dato"><strong>Fecha:</strong> 8 de diciembre</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Se conmemora para generar conciencia sobre el cambio climático y la urgencia de tomar medidas colectivas. Recuerda que el clima es un bien común que afecta a todos los seres vivos del planeta.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://app.genially.com/editor/69bc425310aebf096e0d0afc" target="_blank">https://app.genially.com/editor/69bc425310aebf096e0d0afc</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag6">
+    <div class="contenido">
+      <div class="hero"><h1><span>Día Internacional del Reciclaje</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> Día Internacional del Reciclaje</div>
+        <div class="dato"><strong>Fecha:</strong> 17 de mayo</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Se celebra para promover la cultura del reciclaje y la economía circular. El reciclaje reduce la contaminación, conserva los recursos naturales y disminuye la cantidad de residuos que terminan en rellenos sanitarios o en los océanos.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://app.genially.com/editor/6a0e75e3f02ea9a2afd7ee27" target="_blank">https://app.genially.com/editor/6a0e75e3f02ea9a2afd7ee27</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag7">
+    <div class="contenido">
+      <div class="hero"><h1><span>Día Mundial del Medio Ambiente</span></h1></div>
+      <div class="card">
+        <h2>Información de la actividad</h2>
+        <div class="dato"><strong>Título:</strong> Día Mundial del Medio Ambiente</div>
+        <div class="dato"><strong>Fecha:</strong> 5 de junio</div>
+        <div class="dato"><strong>¿Por qué se conmemora?</strong> Establecido por la ONU en 1972, es el principal vehículo para crear conciencia y generar acciones en favor del medio ambiente. Cada año tiene un tema diferente y convoca a gobiernos, empresas y ciudadanos a actuar.</div>
+        <div class="dato"><strong>Enlace:</strong> <a href="https://app.genially.com/editor/6a0e7f984bb924ee8cdc19c9" target="_blank">https://app.genially.com/editor/6a0e7f984bb924ee8cdc19c9</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagina" id="pag8">
+    <div class="contenido">
+      <div class="hero"><h1><span>Datos del Alumno</span></h1></div>
+      <div class="alumno">
+        <h2>&#127807; Generales</h2>
+        <div class="dato"><strong>Nombre:</strong> Osiel Castillo Carrillo</div>
+        <div class="dato"><strong>Grado y Grupo:</strong> 6-F</div>
+        <div class="dato"><strong>Especialidad:</strong> Gestiona Información Mediante el Uso de Plataformas</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function ir(num) {
+      document.querySelectorAll('.pagina').forEach(function(p){ p.classList.remove('activa'); });
+      document.querySelectorAll('nav ul li button').forEach(function(b){ b.classList.remove('active'); });
+      document.getElementById('pag' + num).classList.add('activa');
+      document.getElementById('btn' + num).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
