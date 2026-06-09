@@ -1,1 +1,0 @@
-# amadgeti_occ
